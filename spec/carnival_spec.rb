@@ -71,7 +71,14 @@ describe Carnival do
 
   describe '#summary' do
     it 'can return hash summary of carnival' do
-      expect(@carnival.summary).to eq({})
+      @ride1.board_rider(@visitor1)
+      @ride2.board_rider(@visitor2)
+      @ride3.board_rider(@visitor3)
+      expect(@carnival.summary).to eq({
+        'Visitor count' => @carnival.visitor_count,
+        'Revenue earned' => @carnival.total_revenue,
+        'List of visitors' => @carnival.list_of_visitors
+      })
     end
   end
 end

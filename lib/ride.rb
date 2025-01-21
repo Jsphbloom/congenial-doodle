@@ -13,7 +13,6 @@ attr_reader :name, :min_height, :admission_fee, :excitement, :total_revenue, :ri
   end
 
   def board_rider(rider)
-    # binding.pry
     if rider.spending_money >= @admission_fee && rider.tall_enough?(@min_height) && rider.preferences.include?(@excitement)
       @rider_log[rider] += 1
       rider.spending_money -= @admission_fee

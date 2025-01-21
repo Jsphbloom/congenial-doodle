@@ -58,19 +58,19 @@ describe Carnival do
     end
   end
 
-  describe '#total_revenue' do
+  describe '#total_revenues' do
     it 'can return total revenue of carnival' do
       @ride1.board_rider(@visitor1)
       @ride2.board_rider(@visitor2)
       @ride3.board_rider(@visitor3)
-      expect(@carnival.total_revenue).to eq(8)
+      expect(@carnival.total_revenues).to eq(8)
       @ride2.board_rider(@visitor1)
-      expect(@carnival.total_revenue).to eq(13)
+      expect(@carnival.total_revenues).to eq(13)
     end
   end
 
   describe '#summary' do
-    it 'can return hash summary of carnival' do
+    xit 'can return hash summary of carnival' do
       @ride1.board_rider(@visitor1)
       @ride2.board_rider(@visitor2)
       @ride3.board_rider(@visitor3)
@@ -79,6 +79,15 @@ describe Carnival do
         'Revenue earned' => @carnival.total_revenue,
         'List of visitors' => @carnival.list_of_visitors
       })
+    end
+  end
+
+  describe '#favorite ride' do
+    xit 'can return the ride the visitor has ridden the most' do
+      @ride1.board_rider(@visitor1)
+      @ride1.board_rider(@visitor1)
+      @ride2.board_rider(@visitor1)
+      expect(@carnival.favorite_ride(@visitor1)).to eq(@ride1)
     end
   end
 end

@@ -1,13 +1,14 @@
 class Carnival
 
-  attr_accessor :duration, :rides, :list_of_visitors, :visitor_count
-  @@total_revenue
-
+  attr_accessor :duration, :rides, :visitors_list, :visitor_count, :total_revenues
+  
+  
   def initialize(duration)
     @duration = duration
-    @rides = []
-    @list_of_visitors = Hash.new{ |hash, key| hash[key] = { favorite_ride: nil, money_spent: 0 } }
+    @visitors_list = Hash.new{ |hash, key| hash[key] = { favorite_ride: nil, money_spent: 0 } }
     @visitor_count = 0
+    @total_revenues = 0
+    @rides = []
   end
 
   def add_ride(ride)
@@ -26,8 +27,9 @@ class Carnival
     end
   end
 
-  def total_revenue
-    @@total_revenue = @rides.sum do |ride|
+  def total_revenues
+    @total_revenues = 0
+    @total_revenues += @rides.sum do |ride|
       ride.total_revenue
     end
   end
@@ -35,20 +37,25 @@ class Carnival
   def summary
     summary = {
       'Visitor count' => @visitor_count,
-      'Revenue earned' => @total_revenue,
-      'List of visitors' => @list_of_visitors
+      'Revenue earned' => @total_revenues,
+      'List of visitors' => @visitors_list
     }
   end
+
+  private
 
   def visitor_count
     @rides.each do |ride|
       @visitor_count += ride.rider_log.keys.count
     end
+    @visitor_count
   end
 
-  def visitor_list
+  def list_of_visitors
     @rides.each do |ride|
-      ride.rider_log.each do |visitor, ride_count|
+      ride.rider_log.each do |rider|
+        @visitors_list[rider]
+      end
     end
   end
 end
